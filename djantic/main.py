@@ -203,11 +203,12 @@ class ModelSchema(BaseModel, metaclass=ModelSchemaMetaclass):
                 result_objs.append(super().from_orm(ProxyGetterNestedObj(obj, cls)))
             return result_objs
 
-        cls.instance = objs
+        cls.instance = objs      
         return super().from_orm(ProxyGetterNestedObj(objs, cls))
     
     def dict(self, *args, **kwargs):
-        breakpoint()
+        print(dir(self))
+        print(vars(self))
         return super().dict(*args, **kwargs)
 
 
