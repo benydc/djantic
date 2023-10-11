@@ -206,5 +206,11 @@ class ModelSchema(BaseModel, metaclass=ModelSchemaMetaclass):
         cls.instance = objs
         return super().from_orm(ProxyGetterNestedObj(objs, cls))
 
+    # Overriding the dict method to use by_alias=True by default
+    def dict(self, *args, **kwargs):
+        print(args)
+        print(kwargs)
+        return super().dict(*args, **kwargs)
+
 
 _is_base_model_class_defined = True
