@@ -139,6 +139,8 @@ class ProxyGetterNestedObj(GetterDict):
         self.schema_class = schema_class
 
     def get(self, key: Any, default: Any = None) -> Any:
+        print(key)
+        print(self.schema_class.__alias_map__[key])
         alias = self.schema_class.__alias_map__[key]
         outer_type_ = self.schema_class.__fields__[alias].outer_type_
         if "__" in key:
@@ -159,11 +161,6 @@ class ProxyGetterNestedObj(GetterDict):
         elif issubclass(attr.__class__, ImageFieldFile) and issubclass(outer_type_, str):
             attr = attr.name
         return attr
-
-    def dict(self, *args, **kwargs):
-        print(args)
-        print(kwargs)
-        return super().dict(*args, **kwargs)
 
 
 class ModelSchema(BaseModel, metaclass=ModelSchemaMetaclass):
