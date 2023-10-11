@@ -204,8 +204,11 @@ class ModelSchema(BaseModel, metaclass=ModelSchemaMetaclass):
             return result_objs
 
         cls.instance = objs
-        print(cls)
         return super().from_orm(ProxyGetterNestedObj(objs, cls))
+    
+    def dict(self, *args, **kwargs):
+        breakpoint()
+        return super().dict(*args, **kwargs)
 
 
 _is_base_model_class_defined = True
