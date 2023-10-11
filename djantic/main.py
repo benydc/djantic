@@ -139,8 +139,6 @@ class ProxyGetterNestedObj(GetterDict):
         self.schema_class = schema_class
 
     def get(self, key: Any, default: Any = None) -> Any:
-        print(key)
-        print(self.schema_class.__alias_map__[key])
         alias = self.schema_class.__alias_map__[key]
         outer_type_ = self.schema_class.__fields__[alias].outer_type_
         if "__" in key:
@@ -206,6 +204,7 @@ class ModelSchema(BaseModel, metaclass=ModelSchemaMetaclass):
             return result_objs
 
         cls.instance = objs
+        print(cls)
         return super().from_orm(ProxyGetterNestedObj(objs, cls))
 
 
